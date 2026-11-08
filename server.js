@@ -19,16 +19,17 @@ const send=(ws,msg)=>{if(ws.readyState===WebSocket.OPEN)ws.send(JSON.stringify(m
 const broadcast=(room,msg,exclude)=>{for(const p of rooms.get(room)?.values()||[])if(p.ws!==exclude)send(p.ws,msg)};
 const cleanName=(s)=>String(s||'Detective').replace(/[<>\x00-\x1f]/g,'').trim().slice(0,18)||'Detective';
 const cleanRoom=(s)=>String(s||'MAPLEWOOD').toUpperCase().replace(/[^A-Z0-9_-]/g,'').slice(0,12)||'MAPLEWOOD';
-const publicPlayer=(p)=>({id:p.id,name:p.name,x:p.x,y:p.y,dir:p.dir,moving:p.moving,style:p.style});
+const cleanAvatar=(a)=>{a=a&&typeof a==='object'?a:{};const pick=(v,list,def)=>list.includes(v)?v:def;return {hairStyle:pick(a.hairStyle,['short','bob','long'],'bob'),hairColor:pick(a.hairColor,['navy','pink','purple','rainbow','blush','blonde','mint','brown'],'pink'),outfit:pick(a.outfit,['blue','green','lilac','black','white','teal'],'blue'),skin:pick(a.skin,['fair','peach','tan','deep'],'fair'),eyes:pick(a.eyes,['aqua','mint','amber','violet'],'aqua'),accessory:pick(a.accessory,['none','clip','bow','leaf','cat','horn'],'none')};};
+const publicPlayer=(p)=>({id:p.id,name:p.name,x:p.x,y:p.y,dir:p.dir,moving:p.moving,style:p.style,avatar:p.avatar});
 function leave(p){if(!p.room)return;const group=rooms.get(p.room);if(group){group.delete(p.id);broadcast(p.room,{type:'leave',id:p.id});if(group.size===0)rooms.delete(p.room)}p.room=null}
 wss.on('connection',ws=>{
- const p={ws,id:crypto.randomUUID(),room:null,name:'Detective',x:398,y:270,dir:'down',moving:false,style:0,lastMove:0,lastChat:0};
+ const p={ws,id:crypto.randomUUID(),room:null,name:'Detective',x:398,y:270,dir:'down',moving:false,style:0,avatar:cleanAvatar({}),lastMove:0,lastChat:0};
  ws.on('message',raw=>{
   let m;try{m=JSON.parse(String(raw))}catch{return}if(!m||typeof m!=='object')return;
   if(m.type==='join'){
    leave(p);const room=cleanRoom(m.room),group=rooms.get(room)||new Map();
    if(group.size>=24)return send(ws,{type:'error',message:'This room is full (24 players).'});
-   p.name=cleanName(m.name);p.x=398;p.y=270;p.room=room;
+   p.name=cleanName(m.name);p.x=398;p.y=270;p.room=room;p.avatar=cleanAvatar(m.avatar);
    send(ws,{type:'welcome',id:p.id,room,players:[...group.values()].map(publicPlayer)});
    if(!rooms.has(room))rooms.set(room,group);group.set(p.id,p);broadcast(room,{type:'join',player:publicPlayer(p)},ws);
   } else if(m.type==='move'&&p.room){
@@ -38,7 +39,7 @@ wss.on('connection',ws=>{
    // Prevent sudden teleports; generous for lag spikes.
    const maxJump=70+Math.min(200,(now-(p.prevAcceptedMove||now))*.2);
    if(Math.hypot(nx-p.x,ny-p.y)>maxJump)return;
-   p.x=nx;p.y=ny;p.dir=['up','down','left','right'].includes(m.dir)?m.dir:'down';p.moving=!!m.moving;p.style=0;p.prevAcceptedMove=now;
+   p.x=nx;p.y=ny;p.dir=['up','down','left','right'].includes(m.dir)?m.dir:'down';p.moving=!!m.moving;p.style=0;p.avatar=cleanAvatar(m.avatar||p.avatar);p.prevAcceptedMove=now;
    broadcast(p.room,{type:'move',...publicPlayer(p)},ws);
   } else if(m.type==='chat'&&p.room){
    const now=Date.now();if(now-p.lastChat<600)return;p.lastChat=now;
