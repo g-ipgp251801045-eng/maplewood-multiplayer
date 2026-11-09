@@ -192,52 +192,53 @@ function actor(c,x,y,source,tick,dir='down',moving=false){
  const col=catColors[a.fur]||catColors.cream,co=outfitColors[a.outfit]||outfitColors.blue;
  const edge='#342c33',dark=col[0],fur=col[1],hi=col[2],eye=eyeColors[a.eyes]||eyeColors.amber;
  const xx=Math.round(x),yy=Math.round(y-(moving?Math.floor(tick/155)%2:0)),step=moving?Math.floor(tick/160)%2:0;
- rect(c,xx-10,yy+10,20,3,'#526b52');
- // Tail curls behind little body.
+ rect(c,xx-10,yy+11,20,3,'#526b52');
+ // tail
  rect(c,xx+9,yy+1,4,7,edge);rect(c,xx+11,yy-2,3,6,dark);rect(c,xx+10,yy-4,3,4,fur);rect(c,xx+9,yy+2,3,5,fur);
- // Boots and tiny jacket.
+ // cute short legs and jacket body
  rect(c,xx-6,yy+7,5,5,edge);rect(c,xx+2,yy+7+step,5,5-step,edge);
- rect(c,xx-9,yy-5,18,14,edge);rect(c,xx-7,yy-4,14,12,co[0]);rect(c,xx-6,yy-4,12,8,co[1]);
- rect(c,xx-2,yy-4,4,7,co[2]);rect(c,xx,yy-2,1,5,'#936b51');
- rect(c,xx-9,yy,3,6,fur);rect(c,xx+6,yy,3,6,fur);
- // Pointed ears with dark pixel edging and warm inner-ear color.
- rect(c,xx-12,yy-27,7,12,edge);rect(c,xx+6,yy-27,7,12,edge);
- rect(c,xx-10,yy-29,4,11,edge);rect(c,xx+7,yy-29,4,11,edge);
- rect(c,xx-9,yy-26,4,9,fur);rect(c,xx+7,yy-26,4,9,fur);
- rect(c,xx-8,yy-24,2,5,'#c78e87');rect(c,xx+8,yy-24,2,5,'#c78e87');
- // Rounded feline head, squared cheek tufts and compact muzzle.
- rect(c,xx-13,yy-20,27,16,edge);rect(c,xx-11,yy-23,23,20,edge);
- rect(c,xx-10,yy-22,21,18,fur);rect(c,xx-12,yy-17,25,12,fur);
- rect(c,xx-11,yy-12,4,5,hi);rect(c,xx+8,yy-12,4,5,hi);
- rect(c,xx-8,yy-21,10,2,hi);rect(c,xx+3,yy-20,5,2,hi);
+ rect(c,xx-9,yy-4,18,14,edge);rect(c,xx-7,yy-3,14,12,co[0]);rect(c,xx-6,yy-3,12,8,co[1]);
+ rect(c,xx-2,yy-3,4,7,co[2]);rect(c,xx,yy-1,1,5,'#936b51');
+ rect(c,xx-9,yy+1,3,5,fur);rect(c,xx+6,yy+1,3,5,fur);
+ // rounder ears
+ rect(c,xx-12,yy-28,7,11,edge);rect(c,xx+6,yy-28,7,11,edge);
+ rect(c,xx-10,yy-30,4,10,edge);rect(c,xx+7,yy-30,4,10,edge);
+ rect(c,xx-9,yy-26,4,8,fur);rect(c,xx+7,yy-26,4,8,fur);
+ rect(c,xx-8,yy-24,2,4,'#d29a93');rect(c,xx+8,yy-24,2,4,'#d29a93');
+ // cuter round head
+ rect(c,xx-14,yy-18,29,13,edge);rect(c,xx-12,yy-24,25,18,edge);rect(c,xx-10,yy-26,21,6,edge);
+ rect(c,xx-11,yy-23,23,17,fur);rect(c,xx-13,yy-17,27,10,fur);rect(c,xx-9,yy-25,19,5,fur);
+ rect(c,xx-12,yy-13,4,4,hi);rect(c,xx+9,yy-13,4,4,hi);rect(c,xx-8,yy-23,7,2,hi);rect(c,xx+4,yy-22,5,2,hi);
  if(a.pattern==='tabby'){
-  rect(c,xx-2,yy-22,4,5,dark);rect(c,xx-8,yy-17,4,2,dark);rect(c,xx+6,yy-17,4,2,dark);
-  rect(c,xx-11,yy-11,3,2,dark);rect(c,xx+9,yy-11,3,2,dark);
+  rect(c,xx-2,yy-23,4,5,dark);rect(c,xx-8,yy-18,4,2,dark);rect(c,xx+6,yy-18,4,2,dark);
+  rect(c,xx-11,yy-12,3,2,dark);rect(c,xx+10,yy-12,3,2,dark);
  } else if(a.pattern==='tuxedo'){
-  rect(c,xx-5,yy-10,11,6,hi);rect(c,xx-2,yy-18,5,3,hi);
+  rect(c,xx-5,yy-11,11,6,hi);rect(c,xx-2,yy-18,5,3,hi);
  } else if(a.pattern==='patches'||a.fur==='calico'){
-  rect(c,xx-11,yy-20,7,7,'#a16d4b');rect(c,xx+6,yy-17,6,6,'#5e5050');
+  rect(c,xx-11,yy-21,7,7,'#a16d4b');rect(c,xx+6,yy-18,6,6,'#5e5050');
  }
- // No anime eyes: 3px almond shapes with different understated iris colors.
+ // slightly larger gentle eyes, still not anime-like
  if(dir!=='up'){
-   rect(c,xx-8,yy-14,7,2,edge);rect(c,xx+2,yy-14,7,2,edge);
-   rect(c,xx-6,yy-13,3,3,eye);rect(c,xx+4,yy-13,3,3,eye);
-   rect(c,xx-5,yy-13,1,2,'#272633');rect(c,xx+5,yy-13,1,2,'#272633');
-   rect(c,xx-2,yy-9,4,2,'#a76e70');rect(c,xx-1,yy-7,2,1,edge);
-   rect(c,xx-9,yy-8,5,2,hi);rect(c,xx+5,yy-8,5,2,hi);
+   rect(c,xx-9,yy-15,8,2,edge);rect(c,xx+2,yy-15,8,2,edge);
+   rect(c,xx-7,yy-14,4,3,eye);rect(c,xx+4,yy-14,4,3,eye);
+   rect(c,xx-6,yy-14,1,2,'#272633');rect(c,xx+5,yy-14,1,2,'#272633');
+   rect(c,xx-5,yy-13,1,1,'#fbf6ee');rect(c,xx+6,yy-13,1,1,'#fbf6ee');
+   rect(c,xx-2,yy-9,4,2,'#b77b7e');rect(c,xx-1,yy-7,2,1,edge);
+   rect(c,xx-10,yy-8,4,2,'#f0b0ab');rect(c,xx+7,yy-8,4,2,'#f0b0ab');
    rect(c,xx-10,yy-7,4,1,edge);rect(c,xx+7,yy-7,4,1,edge);
  }else{
-   rect(c,xx-7,yy-20,15,5,dark);rect(c,xx-6,yy-17,4,2,hi);
+   rect(c,xx-7,yy-21,15,5,dark);rect(c,xx-6,yy-18,4,2,hi);
  }
- // Costume accessories aligned to ears rather than hiding them.
- if(a.accessory==='cap'){rect(c,xx-9,yy-26,19,4,edge);rect(c,xx-7,yy-27,15,3,co[0]);rect(c,xx-12,yy-23,24,3,co[0]);}
- if(a.accessory==='fedora'){rect(c,xx-8,yy-27,17,6,edge);rect(c,xx-6,yy-28,13,6,co[0]);rect(c,xx-13,yy-22,26,3,edge);rect(c,xx-5,yy-24,10,2,co[2]);}
- if(a.accessory==='beret'){rect(c,xx-8,yy-27,17,6,co[0]);rect(c,xx-11,yy-24,21,4,co[1]);}
- if(a.accessory==='glasses'){rect(c,xx-9,yy-16,8,7,edge);rect(c,xx+2,yy-16,8,7,edge);rect(c,xx-7,yy-14,5,4,'#d5cfb4');rect(c,xx+4,yy-14,5,4,'#d5cfb4');rect(c,xx-1,yy-14,3,1,edge);rect(c,xx-5,yy-13,2,2,eye);rect(c,xx+5,yy-13,2,2,eye);}
- if(a.accessory==='scarf'){rect(c,xx-7,yy-5,15,3,'#b06e66');rect(c,xx+5,yy-3,3,6,'#b06e66');}
- if(a.accessory==='bow'){rect(c,xx+7,yy-21,4,3,'#b4677d');rect(c,xx+9,yy-22,3,5,'#dfb1b4');}
+ // accessories
+ if(a.accessory==='cap'){rect(c,xx-9,yy-27,19,4,edge);rect(c,xx-7,yy-28,15,3,co[0]);rect(c,xx-12,yy-24,24,3,co[0]);}
+ if(a.accessory==='fedora'){rect(c,xx-8,yy-28,17,6,edge);rect(c,xx-6,yy-29,13,6,co[0]);rect(c,xx-13,yy-23,26,3,edge);rect(c,xx-5,yy-25,10,2,co[2]);}
+ if(a.accessory==='beret'){rect(c,xx-8,yy-28,17,6,co[0]);rect(c,xx-11,yy-24,21,4,co[1]);}
+ if(a.accessory==='glasses'){rect(c,xx-10,yy-17,8,7,edge);rect(c,xx+2,yy-17,8,7,edge);rect(c,xx-8,yy-15,5,4,'#d5cfb4');rect(c,xx+4,yy-15,5,4,'#d5cfb4');rect(c,xx-1,yy-15,3,1,edge);rect(c,xx-6,yy-14,2,2,eye);rect(c,xx+5,yy-14,2,2,eye);}
+ if(a.accessory==='scarf'){rect(c,xx-7,yy-4,15,3,'#b06e66');rect(c,xx+5,yy-2,3,6,'#b06e66');}
+ if(a.accessory==='bow'){rect(c,xx+7,yy-22,4,3,'#b4677d');rect(c,xx+9,yy-23,3,5,'#dfb1b4');}
  if(a.accessory==='satchel'){rect(c,xx+4,yy+1,6,6,'#98704b');rect(c,xx+4,yy+2,6,1,'#d5b283');}
 }
+function youTag(c,x,y){rect(c,x-14,y-1,28,11,'#2d7668');rect(c,x-12,y,24,9,'#88f2d3');rect(c,x-2,y+9,4,3,'#2d7668');c.fillStyle='#174940';c.font='bold 7px monospace';c.textAlign='center';c.fillText('YOU',x,y+7)}
 function card(c,x,y,text,fg='#674833'){let width=text.length*5+12;rect(c,x-width/2-1,y-1,width+2,17,'#674d37');rect(c,x-width/2,y,width,15,'#fae4b2');c.fillStyle=fg;c.font='bold 8px monospace';c.textAlign='center';c.fillText(text,x,y+10)}
 function showDialogue(npc){met.add(npc.name);paused=true;currentDialogue=npc;
  content.innerHTML=`<div class="kicker">🌷 MAPLEWOOD FRIENDSHIP · ${met.size} VILLAGERS MET</div><h2 id="title">${npc.name}</h2><div class="passage" style="font-size:1.1rem">“${npc.story}”</div><p style="font-size:.85rem;color:#667e69">${npc.key?'There is a reading mystery waiting here.':'Explore the village to find more secrets and meet new friends.'}</p><button class="btn" id="talkContinue">${npc.key?'🔎 Investigate mystery':'🌼 Nice to meet you!'}</button><button class="btn" style="margin-left:8px" id="talkLeave">Goodbye</button>`;
@@ -300,7 +301,7 @@ function draw(t){let cx=Math.round(Math.max(0,Math.min(W-VIEWW,player.x-VIEWW/2)
  for(let k=0;k<35;k++){let wx=1090+(k*17)%42,wy=310+(k*29)%475;rect(ctx,wx-cx+Math.round(Math.sin(t/800+k)*2),wy-cy,3,1,'#b6eee0')}
  for(const petal of petals){let xx=((petal.x+t*petal.speed*.012)%W),yy=((petal.y+t*petal.speed*.018)%H);rect(ctx,xx-cx,yy-cy,2,2,Math.floor(t/450+petal.phase)%3===0?'#e6adc8':'#fff0d2')}
  const subjects=[...npcs.map((npc,i)=>({y:npc.y,x:npc.x,avatar:avatarFromStyle(npc.style),npc})),...Array.from(onlinePlayers.values()).map(p=>({y:p.y,x:p.x,avatar:p.avatar||avatarFromStyle(p.style||0),remote:p})),{y:player.y,x:player.x,avatar:player.avatar,isPlayer:true}].sort((a,b)=>a.y-b.y);
- for(let s of subjects){let walking=s.remote?!!s.remote.moving:(s.isPlayer?player.moving:s.npc&&s.npc.range>0);actor(ctx,Math.round(s.x-cx),Math.round(s.y-cy),s.avatar,s.remote?(s.remote.step||0):(s.isPlayer?player.step:t*.35),s.remote?s.remote.dir:(s.isPlayer?player.dir:'down'),walking);if(s.remote){card(ctx,Math.round(s.x-cx),Math.round(s.y-cy)-42,s.remote.name,'#285f83')}if(s.npc){card(ctx,Math.round(s.x-cx),Math.round(s.y-cy)-42,s.npc.name);if(Math.floor(t/420)%2===0&&Math.hypot(player.x-s.x,player.y-s.y)<80)rect(ctx,Math.round(s.x-cx)-2,Math.round(s.y-cy)-53,4,4,'#fff2a9')}}
+ for(let s of subjects){let walking=s.remote?!!s.remote.moving:(s.isPlayer?player.moving:s.npc&&s.npc.range>0);actor(ctx,Math.round(s.x-cx),Math.round(s.y-cy),s.avatar,s.remote?(s.remote.step||0):(s.isPlayer?player.step:t*.35),s.remote?s.remote.dir:(s.isPlayer?player.dir:'down'),walking);if(s.isPlayer){youTag(ctx,Math.round(s.x-cx),Math.round(s.y-cy)-50)}if(s.remote){card(ctx,Math.round(s.x-cx),Math.round(s.y-cy)-42,s.remote.name,'#285f83')}if(s.npc){card(ctx,Math.round(s.x-cx),Math.round(s.y-cy)-42,s.npc.name);if(Math.floor(t/420)%2===0&&Math.hypot(player.x-s.x,player.y-s.y)<80)rect(ctx,Math.round(s.x-cx)-2,Math.round(s.y-cy)-53,4,4,'#fff2a9')}}
  emoteEffects=emoteEffects.filter(e=>t-e.started<1700);
  for(const e of emoteEffects){const age=(t-e.started)/1700,x=Math.round(e.x-cx),y=Math.round(e.y-cy)-39-Math.round(age*20);
   ctx.save();ctx.globalAlpha=Math.max(0,1-age);ctx.font='16px sans-serif';ctx.textAlign='center';ctx.fillStyle='#d9658a';
